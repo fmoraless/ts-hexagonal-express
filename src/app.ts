@@ -7,22 +7,23 @@ class App {
 
   constructor() {
     this.expressApp = express()
+    this.mountHealthCheck()
+    this.mountMiddlewares()
+    this.mountErrors()
   }
 
   mountHealthCheck() {
-    this.expressApp.use('/', routerHealth)
+    this.expressApp.use('/user', routerHealth)
   }
 
   mountMiddlewares() {
-	this.expressApp.use(express.json())
-	this.expressApp.use(express.urlencoded({ extended: true}))
+    this.expressApp.use(express.json())
+    this.expressApp.use(express.urlencoded({ extended: true }))
   }
 
-  mountError(): void {
-	this.expressApp.use(HandlerErrors.notFound)
+  mountErrors(): void {
+    this.expressApp.use(HandlerErrors.notFound)
   }
 }
 
 export default new App().expressApp
-
-
